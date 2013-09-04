@@ -1,0 +1,4 @@
+server: python ../src/manage.py runserver
+coffee: coffee -wcbmo ../src/static_files/js/ ../src/static_files/coffee
+# less: 
+# guard: bundle exec guard start -i

@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "main.js",
+  "sourceRoot": "../../../cfg",
+  "sources": [
+    "../src/static_files/coffee/main.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA,CAAM,IAAN,EAAA"
+}

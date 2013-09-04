@@ -1,0 +1,33 @@
+#!/bin/bash
+
+cd $(dirname "$0")/../../
+
+sudo nfsd # server for NFS
+
+# install the hostupdater plug-in
+if ! vagrant plugin list | grep vagrant-hostsupdater >/dev/null; then
+    vagrant plugin install vagrant-hostsupdater
+fi
+
+# create the preliminary vagrant file
+if [ ! -f VagrantFile ]; then
+    ln -s cfg/vagrant/init VagrantFile
+fi
+
+vagrant up
+
+# Save box state for further reuse later
+if diff --brief VagrantFile cfg/vagrant/init > /dev/null; then
+    if ! vagrant box list | grep dev_hauler > /dev/null; then
+        vagrant package dev --output dev.box
+        vagrant box add dev_hauler dev.box
+        rm dev.box
+    fi
+
+    # so you can modify it locally
+    rm VagrantFile
+    cp cfg/vagrant/load VagrantFile
+
+    vagrant up
+fi 
+

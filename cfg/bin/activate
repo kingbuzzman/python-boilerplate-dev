@@ -1,0 +1,48 @@
+#!/bin/bash
+
+if [ ! -z "$VIRTUAL_ENV" ]; then
+    echo "You're already in the virtual inviroment, 'deactivate' first and run 'activate' again."
+    return
+fi
+
+new_installation=false
+virtualenv=virtualenv
+
+# run virtual enviroment
+if [ ! -d cfg/$virtualenv ]; then
+    new_installation=true
+    echo "Installing virualenv..."
+    virtualenv cfg/$virtualenv > /dev/null
+
+    mkdir cfg/$virtualenv/gems
+    mkdir cfg/$virtualenv/gems/bin
+    mkdir cfg/$virtualenv/node_modules
+fi
+
+source cfg/$virtualenv/bin/activate
+
+# setup enviroment
+export GEM_PATH=""
+export GEM_HOME="$VIRTUAL_ENV/gems"
+export NODE_PATH="$VIRTUAL_ENV/node_modules"
+export NPM_CONFIG_PREFIX="$VIRTUAL_ENV/node_modules"
+export PATH="$PWD/cfg/bin:$VIRTUAL_ENV/bin:$GEM_HOME/bin:$VIRTUAL_ENV/node_modules/bin:$PATH"
+
+if $new_installation ; then
+    echo "Installing bundler..."
+    gem install bundler > /dev/null
+fi
+
+# run requirements
+echo "Installing pip requirements..."
+pip install -r cfg/requirements/pip.txt > /dev/null
+pip install -r cfg/requirements/pip.dev.txt > /dev/null
+echo "Installing bundler requirements..."
+bundle install --gemfile=cfg/requirements/Gemfile > /dev/null
+echo "Installing npm requrements..."
+cat cfg/requirements/npm.txt | xargs npm install -g &> /dev/null
+
+echo ""
+echo "Type 'runvagrant' to launch the development virtual enviroment"
+echo "Type 'runserver' to launch the full development enviroment in your machine"
+echo "Type 'runserverdev' to launch the django runserver"

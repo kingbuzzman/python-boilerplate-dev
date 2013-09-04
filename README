@@ -1,0 +1,13 @@
+python-boilerplate-dev
+===
+
+Requirements:
+* virtualbox (https://www.virtualbox.org/wiki/Downloads)
+* * vagrant (http://downloads.vagrantup.com/)
+* nodejs
+* * npm
+* python
+* * setup-tools
+* * pip
+* * virtualenv
+* ruby

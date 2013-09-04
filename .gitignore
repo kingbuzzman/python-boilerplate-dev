@@ -1,0 +1,11 @@
+.DS_Store
+.ackrc
+.vagrant*
+cfg/virtualenv
+VagrantFile
+src/settingslocal.py
+*.lock
+*.pyc
+*.swp
+*.swo
+*.db

@@ -1,0 +1,13 @@
+guard 'sass',
+  :input => 'src/static/sass',
+  :output => 'src/static/css',
+  :debug_info => true,
+  :compass => {
+    :images_dir => "src/static/img",
+    :images_path => File.join(Dir.pwd, "src/static/img"),
+    :http_path => "/",
+    :http_images_path => "/img",
+    :http_images_dir => "/img",
+    :relative_assets => true
+  }
+
