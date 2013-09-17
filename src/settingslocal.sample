@@ -1,0 +1,29 @@
+from settings import *
+
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+
+INSTALLED_APPS += ('gunicorn',)
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'sample',
+        'USER': 'postgres',
+        'PASSWORD': 'password',
+        'HOST': 'db.dev.sample.com',
+        'PORT': '1234',
+    }
+}
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': 'memcache.dev.sample.com:11211',
+    }
+}
+
+LOGGING['root'] = {
+    'handlers': ['console'],
+    'level': 'DEBUG'
+}
